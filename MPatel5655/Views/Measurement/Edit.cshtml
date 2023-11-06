@@ -1,0 +1,55 @@
+﻿@model Measurement
+@{
+	string title = ViewBag.Action + " Measurement";
+	ViewData["Title"] = title;
+}
+<h2>@ViewBag.Title</h2>
+
+<form asp-action="Edit" method="post">
+
+	<div asp-validation-summary="All" class="text-danger"></div>
+	<div class="mb-3">
+		<label asp-for="Systolic" class="form-label">Systolic (mm Hg)</label>
+		<input asp-for="Systolic" class="form-control">
+	</div>
+	<div class="mb-3">
+		<label asp-for="Diastolic" class="form-label">Diastolic (mm Hg)</label>
+		<input asp-for="Diastolic" class="form-control">
+	</div>
+	<div class="mb-3">
+			<label asp-for="PositionId" class="form-label">
+				Position
+			</label>
+
+			<select asp-for="PositionId" class="form-select">
+				<option value="">Select a position</option>
+				@foreach (var position in ViewBag.Positions)
+				{
+					<option value="@position.PositionId">
+						@position.Name
+					</option>
+				}
+			</select>
+	</div>
+
+	<div class="mb-3">
+		<label asp-for="Date" class="form-label">Date</label>
+		<input asp-for="Date" class="form-control" id="datepicker">
+	</div>
+
+
+	<input type="hidden" asp-for="Id" />
+
+	<button type="submit" class="btn btn-primary">Save</button>
+	<a asp-controller="Measurement" asp-action="AllMeasurement" class="btn btn-primary">Cancel</a>
+</form>
+
+
+
+
+<script>
+	$(function () {
+		$("#datepicker").datepicker({ dateFormat: 'yy/mm/dd' }); // Specify the date format you want
+	});
+</script>
+

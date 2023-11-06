@@ -1,0 +1,14 @@
+﻿@model Measurement
+@{
+	ViewData["Title"] = "Delete Movie";
+}
+
+<h2>Confirm Deletion</h2>
+<h3>@Model.Systolic / @Model.Diastolic (taken on @Model.Date)</h3>
+
+<form asp-action="Delete" method="post">
+
+	<input type="hidden" asp-for="Id" />
+	<button type="submit" class="btn btn-primary">Delete</button>
+	<a asp-controller="Measurement" asp-action="AllMeasurement" class="btn btn-primary">Cancel</a>
+</form>

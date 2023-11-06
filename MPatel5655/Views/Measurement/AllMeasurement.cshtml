@@ -1,0 +1,53 @@
+﻿@model List<Measurement>
+
+@{
+    ViewData["Title"] = "Measurements";
+}
+
+<style>
+
+    .normal {color: darkgreen}
+    .elevated {color: blue}
+    .stage1 {color: orange}
+    .stage2 {color:orangered}
+    .crisis {color: darkred}
+    .invalid {color: gray}
+
+</style>
+
+<h1>All Measurements</h1>
+
+<div class="mb-2">
+    <a asp-controller="Measurement" asp-action="Add">Add Measurement</a>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Reading</th>
+            <th>Category</th>
+            <th>Position</th>
+            <th>Date taken</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var measurement in Model)
+        {
+            <tr>
+                <td>@measurement.Systolic@string.Format("/")@measurement.Diastolic</td>
+                <td class="@measurement.Color()">@measurement.Category()</td>
+                <td>@measurement.Position.Name</td>
+                <td>@measurement.Date.ToString("yyyy-MM-dd")</td>
+                <td>
+                    <a asp-controller="Measurement" asp-action="Edit"
+                    asp-route-id="@measurement.Id">Edit</a>
+                    <a asp-controller="Measurement" asp-action="Delete"
+                    asp-route-id="@measurement.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
